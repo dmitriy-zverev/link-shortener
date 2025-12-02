@@ -9,8 +9,12 @@ from rest_framework import routers
 from users.views import (
     UserViewSet, )
 
+from core.views import (
+    LinkViewSet, )
+
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet, basename='users')
+router.register(r's', LinkViewSet, basename='links')
 
 urlpatterns = [
     path('', include(router.urls)),
