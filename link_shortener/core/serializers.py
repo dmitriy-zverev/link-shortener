@@ -25,3 +25,10 @@ class LinkSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['short_code'] = generate_unique_shortcode()
         return super().create(validated_data)
+
+    def to_representation(self, instance):
+        data = super().to_representation(instance)
+
+        data['total_views'] = instance.linkstatistic.count()
+
+        return data

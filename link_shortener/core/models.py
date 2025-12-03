@@ -6,7 +6,7 @@ User = get_user_model()
 
 class Link(models.Model):
 
-    url = models.CharField(unique=True,
+    url = models.CharField(unique=False,
                            max_length=256,
                            blank=False,
                            null=False)
@@ -24,3 +24,18 @@ class Link(models.Model):
 
     def __str__(self):
         return f'{self.short_code} ({self.author.username}) -> {self.url}'
+
+
+class LinkStatistic(models.Model):
+
+    link = models.ForeignKey(Link,
+                             on_delete=models.CASCADE,
+                             null=False,
+                             blank=False,
+                             related_name='linkstatistic')
+    user = models.ForeignKey(User,
+                             on_delete=models.CASCADE,
+                             null=False,
+                             blank=False,
+                             related_name='linkstatistic')
+    created_at = models.DateTimeField(auto_now_add=True)

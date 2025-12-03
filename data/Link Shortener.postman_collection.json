@@ -1,0 +1,2406 @@
+{
+	"info": {
+		"_postman_id": "82deff79-2af9-4826-ae61-872bdfe2aedc",
+		"name": "Link Shortener",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "49637908",
+		"_collection_link": "https://dmitriy-zverev-4297096.postman.co/workspace/ec23f55c-b483-4a03-85e3-4bb3d4f32612/collection/49637908-82deff79-2af9-4826-ae61-872bdfe2aedc?action=share&source=collection_link&creator=49637908"
+	},
+	"item": [
+		{
+			"name": "register_and_get_tokens // No Auth",
+			"item": [
+				{
+					"name": "create_users",
+					"item": [
+						{
+							"name": "create_first_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\":{",
+											"        \"id\": {\"type\": \"number\"},",
+											"        \"username\": {\"type\": \"string\"},",
+											"        \"first_name\": {\"type\": \"string\"},",
+											"        \"last_name\": {\"type\": \"string\"},",
+											"        \"email\": {\"type\": \"string\"}",
+											"    },",
+											"    \"required\": [\"id\", \"username\", \"first_name\", \"last_name\", \"email\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что запроc на регистрацию нового пользователя, содержащий корректные данные, возвращает ответ со статус-кодом 201\"",
+											"    ).to.be.eql(\"Created\");",
+											"    const userId = _.get(responseData, \"id\");",
+											"    if (userId) {",
+											"        pm.collectionVariables.set(\"userId\", userId);",
+											"    }",
+											"});",
+											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": {{email}},\n    \"username\": {{username}},\n    \"first_name\": \"Вася\",\n    \"last_name\": \"Пупкин\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_second_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\":{",
+											"        \"id\": {\"type\": \"number\"},",
+											"        \"username\": {\"type\": \"string\"},",
+											"        \"first_name\": {\"type\": \"string\"},",
+											"        \"last_name\": {\"type\": \"string\"},",
+											"        \"email\": {\"type\": \"string\"}",
+											"    },",
+											"    \"required\": [\"id\", \"username\", \"first_name\", \"last_name\", \"email\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что запроc на регистрацию нового пользователя, содержащий корректные данные, возвращает ответ со статус-кодом 201\"",
+											"    ).to.be.eql(\"Created\");",
+											"    const userId = _.get(responseData, \"id\");",
+											"    if (userId) {",
+											"        pm.collectionVariables.set(\"secondUserId\", userId);",
+											"    }",
+											"});",
+											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": {{secondUserEmail}},\n    \"username\": {{secondUserUsername}},\n    \"first_name\": \"Андрей\",\n    \"last_name\": \"Макаревский\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "create_third_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\":{",
+											"        \"id\": {\"type\": \"number\"},",
+											"        \"username\": {\"type\": \"string\"},",
+											"        \"first_name\": {\"type\": \"string\"},",
+											"        \"last_name\": {\"type\": \"string\"},",
+											"        \"email\": {\"type\": \"string\"}",
+											"    },",
+											"    \"required\": [\"id\", \"username\", \"first_name\", \"last_name\", \"email\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что запроc на регистрацию нового пользователя, содержащий корректные данные, возвращает ответ со статус-кодом 201\"",
+											"    ).to.be.eql(\"Created\");",
+											"    const userId = _.get(responseData, \"id\");",
+											"    if (userId) {",
+											"        pm.collectionVariables.set(\"thirdUserId\", userId);",
+											"    }",
+											"});",
+											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": {{thirdUserEmail}},\n    \"username\": {{thirdUserUsername}},\n    \"first_name\": \"Гордон\",\n    \"last_name\": \"Рамзиков\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get_tokens",
+					"item": [
+						{
+							"name": "get_token_for_first_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\":{",
+											"        \"auth_token\": {\"type\": \"string\"},",
+											"    },",
+											"    \"required\": [\"auth_token\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что запроc на получение токена, содержащий корректные данные, возвращает ответ со статус-кодом 200\"",
+											"    ).to.be.eql(\"OK\");",
+											"});",
+											"pm.test('Структура ответа соответствует ожидаемой', function () {",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"    const auth_token = _.get(responseData, \"auth_token\");",
+											"    if (auth_token) {",
+											"        pm.collectionVariables.set(\"userToken\", auth_token);",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Cookie",
+										"value": "csrftoken=8Quaz1iPHzXIhiyDZF9QA7igVxN7cmoB; sessionid=8t8dv0xvidyn3g21msl5ey679h4ds2bj",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": {{email}},\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/token/login/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"login",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_token_for_second_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\":{",
+											"        \"auth_token\": {\"type\": \"string\"},",
+											"    },",
+											"    \"required\": [\"auth_token\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что запроc на получение токена, содержащий корректные данные, возвращает ответ со статус-кодом 200\"",
+											"    ).to.be.eql(\"OK\");",
+											"});",
+											"pm.test('Структура ответа соответствует ожидаемой', function () {",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"    const auth_token = _.get(responseData, \"auth_token\");",
+											"    if (auth_token) {",
+											"        pm.collectionVariables.set(\"secondUserToken\", auth_token);",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": {{secondUserEmail}},\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/token/login/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"login",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "create_users_bad_requests",
+					"item": [
+						{
+							"name": "user_registration_without_email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что если в запросе на регистрацию нового пользователя не передан `email` - возвращается ответ со статус-кодом 400\"",
+											"    ).to.be.eql(\"Bad Request\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"NoEmail\",\n    \"first_name\": \"No\",\n    \"last_name\": \"Email\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user_registration_without_username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что если в запросе на регистрацию нового пользователя не передан `username`- возвращается ответ со статус-кодом 400\"",
+											"    ).to.be.eql(\"Bad Request\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"no-username@user.ru\",\n    \"first_name\": \"Username\",\n    \"last_name\": \"NotProvided\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user_registration_without_first_name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что если в запросе на регистрацию нового пользователя не передан `first_name` - возвращается ответ со статус-кодом 400\"",
+											"    ).to.be.eql(\"Bad Request\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"NoFirstName\",\n    \"email\": \"no-first-name@user.ru\",\n    \"last_name\": \"NoFirstName\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user_registration_without_last_name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что если в запросе на регистрацию нового пользователя не передан `last_name` - возвращается ответ со статус-кодом 400\"",
+											"    ).to.be.eql(\"Bad Request\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"NoLastName\",\n    \"email\": \"no-last-name@user.ru\",\n    \"first_name\": \"NoLastName\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user_registration_without_password_name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что если в запросе на регистрацию нового пользователя не передан `password` - возвращается ответ со статус-кодом 400\"",
+											"    ).to.be.eql(\"Bad Request\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"NoPassword\",\n    \"email\": \"no-pasword@user.ru\",\n    \"first_name\": \"NoPassword\",\n    \"last_name\": \"NoPassword\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user_registration_too_long_email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Максимальная длина поля `email` должна иметь ограничение в 254 символа\"",
+											"    ).to.be.eql(\"Bad Request\")",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"TooLongEmail\",\n    \"email\": \"{{tooLongEmail}}\",\n    \"first_name\": \"TooLongEmail\",\n    \"last_name\": \"TooLongEmail\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user_registration_too_long_username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Максимальная длина поля`username` должна иметь ограничение в 150 символов\"",
+											"    ).to.be.eql(\"Bad Request\")",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"{{tooLongUsername}}\",\n    \"email\": \"too-long-username@user.ru\",\n    \"first_name\": \"TooLongUsername\",\n    \"last_name\": \"TooLongUsername\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user_registration_too_long_first_name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Максимальная длина поля`first_name` должна иметь ограничение в 150 символов\"",
+											"    ).to.be.eql(\"Bad Request\")",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"TooLongFirstName\",\n    \"email\": \"too-long-firt-name@user.ru\",\n    \"first_name\": \"{{tooLongUsername}}\",\n    \"last_name\": \"TooLongFirstName\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user_registration_too_long_last_name",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Максимальная длина поля`last_name` должна иметь ограничение в 150 символов\"",
+											"    ).to.be.eql(\"Bad Request\")",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"TooLongLastName\",\n    \"email\": \"too-long-last-name@user.ru\",\n    \"first_name\": \"TooLongLastName\",\n    \"last_name\": \"{{tooLongUsername}}\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user_registration_with_invalid_username",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Для поля `username` не должны приниматься значения, не соответствующие регулярному выражению `^[\\w.@+-]+\\Z`\"",
+											"    ).to.be.eql(\"Bad Request\")",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"InvalidU$ername\",\n    \"email\": \"invalid-username@user.ru\",\n    \"first_name\": \"Invalid\",\n    \"last_name\": \"Username\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user_registration_email_in_use",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Если при регистрации нового пользователя в запрос передан `email` зарегистрированного пользователя - должен вернуться ответ со статусом 400\"",
+											"    ).to.be.eql(\"Bad Request\")",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": {{email}},\n    \"username\": \"EmailInUse\",\n    \"first_name\": \"Email\",\n    \"last_name\": \"InUse\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "user_registration_username_in_use",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Если при регистрации нового пользователя в запросе передан `username` зарегистрированного пользователя - должен вернуться ответ со статусом 400\"",
+											"    ).to.be.eql(\"Bad Request\")",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": \"username-in-use@user.ru\",\n    \"username\": {{username}},\n    \"first_name\": \"Username\",\n    \"last_name\": \"InUse\",\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get_token_bad_requests",
+					"item": [
+						{
+							"name": "get_token_username_and_email_mismatch",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Если запрос содержит некорректный пароль должен вернуться ответ со статусом 400\"",
+											"    ).to.be.eql(\"Bad Request\")",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": {{secondUserUsername}},\n    \"password\": \"randomPassword\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/token/login/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"login",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_token_no_email",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Если если в запросе отсутствует `email` должен вернуться ответ со статусом 400\"",
+											"    ).to.be.eql(\"Bad Request\")",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/token/login/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"login",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_token_no_password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Если если в запросе отсутствует пароль должен вернуться ответ со статусом 400\"",
+											"    ).to.be.eql(\"Bad Request\")",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": {{secondUserUsername}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/token/login/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"login",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "logout",
+					"item": [
+						{
+							"name": "logout // User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что запрос зарегистрированного пользователя на удаление токена возвращает статус 204\"",
+											"    ).to.be.eql(\"No Content\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "Token {{userToken}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/auth/token/logout/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"logout",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_token",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\":{",
+											"        \"auth_token\": {\"type\": \"string\"},",
+											"    },",
+											"    \"required\": [\"auth_token\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что запроc на получение токена, содержащий корректные данные, возвращает ответ со статус-кодом 200\"",
+											"    ).to.be.eql(\"OK\");",
+											"});",
+											"pm.test('Структура ответа соответствует ожидаемой', function () {",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"    const auth_token = _.get(responseData, \"auth_token\");",
+											"    if (auth_token) {",
+											"        pm.collectionVariables.set(\"userToken\", auth_token);",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": {{email}},\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/token/login/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"login",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "users",
+			"item": [
+				{
+					"name": "get_user_info",
+					"item": [
+						{
+							"name": "get_user_list // No Auth",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\":{",
+											"        \"count\": {\"type\": \"number\"},",
+											"        \"next\": {\"type\": [\"string\", \"null\"]},",
+											"        \"previous\": {\"type\": [\"string\", \"null\"]},",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"            \"items\": {",
+											"                \"type\": \"object\",",
+											"                \"properties\": {",
+											"                    \"id\": {\"type\": \"number\"},",
+											"                    \"username\": {\"type\": \"string\"},",
+											"                    \"first_name\": {\"type\": \"string\"},",
+											"                    \"last_name\": {\"type\": \"string\"},",
+											"                    \"email\": {\"type\": \"string\"},",
+											"                    \"is_subscribed\": {\"type\": \"boolean\"}",
+											"                },",
+											"                \"required\": [\"id\", \"username\", \"first_name\", \"last_name\", \"email\"],",
+											"                \"additionalProperties\": false",
+											"            }",
+											"        }",
+											"    },",
+											"    \"required\": [\"count\", \"next\", \"previous\", \"results\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"    ).to.be.eql(\"OK\");",
+											"});",
+											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"    pm.expect(",
+											"        pm.response,",
+											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"    ).to.have.jsonSchema({\"type\": \"object\"});",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_user_list// User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\":{",
+											"        \"count\": {\"type\": \"number\"},",
+											"        \"next\": {\"type\": [\"string\", \"null\"]},",
+											"        \"previous\": {\"type\": [\"string\", \"null\"]},",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"            \"items\": {",
+											"                \"type\": \"object\",",
+											"                \"properties\": {",
+											"                    \"id\": {\"type\": \"number\"},",
+											"                    \"username\": {\"type\": \"string\"},",
+											"                    \"first_name\": {\"type\": \"string\"},",
+											"                    \"last_name\": {\"type\": \"string\"},",
+											"                    \"email\": {\"type\": \"string\"},",
+											"                    \"is_subscribed\": {\"type\": \"boolean\"}",
+											"                },",
+											"                \"required\": [\"id\", \"username\", \"first_name\", \"last_name\", \"email\"],",
+											"                \"additionalProperties\": false",
+											"            }",
+											"        }",
+											"    },",
+											"    \"required\": [\"count\", \"next\", \"previous\", \"results\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"    ).to.be.eql(\"OK\");",
+											"});",
+											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"    pm.expect(",
+											"        pm.response,",
+											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"    ).to.have.jsonSchema({\"type\": \"object\"});",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "Token {{userToken}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_user_list_with_limit_param // User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\":{",
+											"        \"count\": {\"type\": \"number\"},",
+											"        \"next\": {\"type\": [\"string\", \"null\"]},",
+											"        \"previous\": {\"type\": [\"string\", \"null\"]},",
+											"        \"results\": {",
+											"            \"type\": \"array\",",
+											"            \"items\": {",
+											"                \"type\": \"object\",",
+											"                \"properties\": {",
+											"                    \"id\": {\"type\": \"number\"},",
+											"                    \"username\": {\"type\": \"string\"},",
+											"                    \"first_name\": {\"type\": \"string\"},",
+											"                    \"last_name\": {\"type\": \"string\"},",
+											"                    \"email\": {\"type\": \"string\"},",
+											"                    \"is_subscribed\": {\"type\": \"boolean\"}",
+											"                },",
+											"                \"required\": [\"id\", \"username\", \"first_name\", \"last_name\", \"email\"],",
+											"                \"additionalProperties\": false",
+											"            }",
+											"        }",
+											"    },",
+											"    \"required\": [\"count\", \"next\", \"previous\", \"results\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"    ).to.be.eql(\"OK\");",
+											"});",
+											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"    pm.expect(",
+											"        pm.response,",
+											"        \"Убедитесь, что для запрошенного эндпоинта корректно настроена пагинация\"",
+											"    ).to.have.jsonSchema({\"type\": \"object\"});",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"});",
+											"pm.test(",
+											"    \"Убедитесь, что можно изменить количество объектов на странице через параметр `limit`\",",
+											"    function () {",
+											"        const limit = Number(pm.request.url.query.get(\"limit\"));",
+											"        const responseData = pm.response.json();",
+											"        pm.expect(",
+											"            responseData.results.length,",
+											"            \"Убедитесь, что с помощью параметра запроса `limit` можно изменять количество объектов на странице пагинатора\"    ",
+											"        ).to.be.eql(limit)",
+											"    }",
+											");",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "Token {{userToken}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users/?limit=1",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										""
+									],
+									"query": [
+										{
+											"key": "limit",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_profile // No Auth",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\": {",
+											"        \"id\": {\"type\": \"number\"},",
+											"        \"username\": {\"type\": \"string\"},",
+											"        \"first_name\": {\"type\": \"string\"},",
+											"        \"last_name\": {\"type\": \"string\"},",
+											"        \"email\": {\"type\": \"string\"},",
+											"        \"is_subscribed\": {\"type\": \"boolean\"}",
+											"    },",
+											"    \"required\": [\"id\", \"username\", \"first_name\", \"last_name\", \"email\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"    ).to.be.eql(\"OK\");",
+											"});",
+											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users/{{userId}}/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_profile // User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\": {",
+											"        \"id\": {\"type\": \"number\"},",
+											"        \"username\": {\"type\": \"string\"},",
+											"        \"first_name\": {\"type\": \"string\"},",
+											"        \"last_name\": {\"type\": \"string\"},",
+											"        \"email\": {\"type\": \"string\"},",
+											"        \"is_subscribed\": {\"type\": \"boolean\"}",
+											"    },",
+											"    \"required\": [\"id\", \"username\", \"first_name\", \"last_name\", \"email\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"    ).to.be.eql(\"OK\");",
+											"});",
+											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "Token {{userToken}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users/{{userId}}/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"{{userId}}",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "users_me // User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\": {",
+											"        \"id\": {\"type\": \"number\"},",
+											"        \"username\": {\"type\": \"string\"},",
+											"        \"first_name\": {\"type\": \"string\"},",
+											"        \"last_name\": {\"type\": \"string\"},",
+											"        \"email\": {\"type\": \"string\"},",
+											"    },",
+											"    \"required\": [\"id\", \"username\", \"first_name\", \"last_name\", \"email\"],",
+											"    \"additionalProperties\": false,",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Запрос зарегистрированного пользователя должен вернуть ответ со статус-кодом 200\"",
+											"    ).to.be.eql(\"OK\");",
+											"});",
+											"pm.test('Структура ответа должна соответствовать ожидаемой', function () {",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "Token {{userToken}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token 1c9f6142fcd8d84cfd2b865cee88d20d626cd74c",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/me/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"me",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "reset_password",
+					"item": [
+						{
+							"name": "reset_password // User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что запрос пользователя с корректными данными возвращает ответ со статусом 204\"",
+											"    ).to.be.eql(\"No Content\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "Token {{userToken}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"current_password\": {{password}},\n    \"new_password\": {{newPassword}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/set_password/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"set_password",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_token_with_new_password",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\":{",
+											"        \"auth_token\": {\"type\": \"string\"},",
+											"    },",
+											"    \"required\": [\"auth_token\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что после изменения пароля через запрос к `api/users/set_password/`, запроc на получение токена с новым паролем возвращает ответ со статусом 200\"",
+											"    ).to.be.eql(\"OK\");",
+											"});",
+											"pm.test('Структура ответа соответствует ожидаемой', function () {",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"    const auth_token = _.get(responseData, \"auth_token\");",
+											"    if (auth_token) {",
+											"        pm.collectionVariables.set(\"userToken\", auth_token);",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": {{email}},\n    \"password\": {{newPassword}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/token/login/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"login",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "roll_back_password // User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 204\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что запрос пользователя с корректными данными возвращает ответ со статусом 204\"",
+											"    ).to.be.eql(\"No Content\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "Token {{userToken}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"current_password\": {{newPassword}},\n    \"new_password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/set_password/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"set_password",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_token_for_first_user",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\":{",
+											"        \"auth_token\": {\"type\": \"string\"},",
+											"    },",
+											"    \"required\": [\"auth_token\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 200\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что запроc на получение токена, содержащий корректные данные, возвращает ответ со статус-кодом 200\"",
+											"    ).to.be.eql(\"OK\");",
+											"});",
+											"pm.test('Структура ответа соответствует ожидаемой', function () {",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"    const auth_token = _.get(responseData, \"auth_token\");",
+											"    if (auth_token) {",
+											"        pm.collectionVariables.set(\"userToken\", auth_token);",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"email\": {{email}},\n    \"password\": {{password}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/auth/token/login/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"auth",
+										"token",
+										"login",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "users_bad_requests",
+					"item": [
+						{
+							"name": "users_me // No Auth",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 401\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Запрос незарегистрированного пользователя должен вернуть ответ со статус-кодом 401\"",
+											"    ).to.be.eql(\"Unauthorized\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "Token 1c9f6142fcd8d84cfd2b865cee88d20d626cd74c",
+										"type": "text",
+										"disabled": true
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/users/me/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"me",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "get_non_existing_profile // User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 404\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Запрос к `/api/users/{userId}/` с `id` несуществующего пользователя должен вернуть ответ со статус-кодом 404\"",
+											"    ).to.be.eql(\"Not Found\");",
+											"});",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "Token {{userToken}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/users/9876/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"9876",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset_password_wrong_password // User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Статус-код ответа должен быть 400\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Если поле `current_password` содержит неправильный пароль - должен вернуться ответ со статусом 400\"",
+											"    ).to.be.eql(\"Bad Request\");",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "Token {{userToken}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"current_password\": \"wrongPassword\",\n    \"new_password\": {{newPassword}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/users/set_password/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"users",
+										"set_password",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			],
+			"auth": {
+				"type": "noauth"
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "links",
+			"item": [
+				{
+					"name": "create_links",
+					"item": [
+						{
+							"name": "create_new_link // User",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const responseData = pm.response.json();",
+											"const responseSchema = {",
+											"    \"type\": \"object\",",
+											"    \"properties\":{",
+											"        \"id\": {\"type\": \"number\"},",
+											"        \"url\": {\"type\": \"string\"},",
+											"        \"short_code\": {\"type\": \"string\"},",
+											"        \"author\": {",
+											"            \"type\": \"object\",",
+											"            \"properties\": {",
+											"                \"id\": {\"type\": \"number\"},",
+											"                \"username\": {\"type\": \"string\"},",
+											"                \"first_name\": {\"type\": \"string\"},",
+											"                \"last_name\": {\"type\": \"string\"},",
+											"                \"email\": {\"type\": \"string\"},",
+											"            }",
+											"        },",
+											"        \"created_at\": {\"type\": \"string\"},",
+											"        \"updated_at\": {\"type\": \"string\"},",
+											"        \"total_views\": {\"type\": \"number\"},",
+											"    },",
+											"    \"required\": [\"short_code\"],",
+											"    \"additionalProperties\": false",
+											"};",
+											"",
+											"pm.test(\"Статус-код ответа должен быть 201\", function () {",
+											"    pm.expect(",
+											"        pm.response.status,",
+											"        \"Убедитесь, что запроc на создание короткой ссылки, содержащий корректные данные, возвращает ответ со статус-кодом 201\"",
+											"    ).to.be.eql(\"Created\");",
+											"});",
+											"pm.test('Структура ответа соответствует ожидаемой', function () {",
+											"    pm.response.to.have.jsonSchema(responseSchema);",
+											"    const short_code = _.get(responseData, \"short_code\");",
+											"    if (short_code) {",
+											"        pm.collectionVariables.set(\"user1ShortCode\", short_code);",
+											"    }",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {},
+										"requests": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "Token {{userToken}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"url\": {{longUrlUser1}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/s/",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"s",
+										""
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "get_redirects",
+					"item": []
+				},
+				{
+					"name": "get_links",
+					"item": []
+				},
+				{
+					"name": "get_link_details",
+					"item": []
+				},
+				{
+					"name": "update_link",
+					"item": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": ""
+		},
+		{
+			"key": "email",
+			"value": ""
+		},
+		{
+			"key": "username",
+			"value": ""
+		},
+		{
+			"key": "password",
+			"value": ""
+		},
+		{
+			"key": "userId",
+			"value": ""
+		},
+		{
+			"key": "secondUserEmail",
+			"value": ""
+		},
+		{
+			"key": "secondUserUsername",
+			"value": ""
+		},
+		{
+			"key": "secondUserId",
+			"value": ""
+		},
+		{
+			"key": "thirdUserEmail",
+			"value": ""
+		},
+		{
+			"key": "thirdUserUsername",
+			"value": ""
+		},
+		{
+			"key": "thirdUserId",
+			"value": ""
+		},
+		{
+			"key": "userToken",
+			"value": ""
+		},
+		{
+			"key": "secondUserToken",
+			"value": ""
+		},
+		{
+			"key": "tooLongUsername",
+			"value": ""
+		},
+		{
+			"key": "newPassword",
+			"value": ""
+		},
+		{
+			"key": "longUrl",
+			"value": ""
+		},
+		{
+			"key": "shortCode",
+			"value": ""
+		},
+		{
+			"key": "longUrlUser1",
+			"value": ""
+		},
+		{
+			"key": "user1ShortCode",
+			"value": ""
+		},
+		{
+			"key": "user2ShortCode",
+			"value": "",
+			"type": "default"
+		}
+	]
+}
